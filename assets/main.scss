@@ -21,24 +21,25 @@ p, a, li, code, pre,
 
 /* ========== 百分比自适应布局 ========== */
 .wrapper {
-  width: 90%;
+  width: 88%;
   max-width: none;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 2%;
+  padding-right: 2%;
   box-sizing: border-box;
 }
 
 .page-content {
   width: 100%;
   padding: 2% 0;
+  box-sizing: border-box;
 }
 
 .post-content,
-.home,
-.page-content .wrapper {
+.home {
   width: 100%;
+  box-sizing: border-box;
 }
 
 .post-content img,
@@ -61,21 +62,23 @@ pre,
 
 table {
   width: 100%;
+  max-width: 100%;
   display: block;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
 /* 去掉顶部黑线；标题左、导航右 */
 .site-header {
   border-top: none;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .site-header .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
   gap: 2%;
 }
 
@@ -83,7 +86,7 @@ table {
   float: none;
   margin: 0;
   flex: 0 1 auto;
-  max-width: 50%;
+  max-width: 45%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -94,16 +97,13 @@ table {
   margin: 0;
   line-height: 1;
   flex: 0 1 auto;
-  max-width: 50%;
+  max-width: 55%;
   text-align: right;
 }
 
 .site-footer {
   width: 100%;
-}
-
-.site-footer .wrapper {
-  width: 90%;
+  box-sizing: border-box;
 }
 
 .footer-col-wrapper {
@@ -327,10 +327,10 @@ html[data-theme="light"] table tr:nth-child(even) {
 
 /* 平板 */
 @media screen and (max-width: 900px) {
-  .wrapper,
-  .site-header .wrapper,
-  .site-footer .wrapper {
-    width: 92%;
+  .wrapper {
+    width: 94%;
+    padding-left: 3%;
+    padding-right: 3%;
   }
 
   .footer-col-1,
@@ -343,10 +343,10 @@ html[data-theme="light"] table tr:nth-child(even) {
 
 /* 手机 */
 @media screen and (max-width: 600px) {
-  .wrapper,
-  .site-header .wrapper,
-  .site-footer .wrapper {
-    width: 94%;
+  .wrapper {
+    width: 96%;
+    padding-left: 4%;
+    padding-right: 4%;
   }
 
   .site-header .wrapper {
