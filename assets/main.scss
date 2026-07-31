@@ -1,0 +1,12 @@
+---
+---
+
+@import "minima";
+
+/* Microsoft monospace: Consolas / Cascadia Mono */
+body,
+h1, h2, h3, h4, h5, h6,
+p, a, li, code, pre,
+.site-title, .site-nav, .post-link, .post-meta, .footer-col {
+  font-family: Consolas, "Cascadia Mono", "Cascadia Code", "Courier New", monospace;
+}
