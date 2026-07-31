@@ -6,10 +6,8 @@ baseurl: ""
 lang: zh-CN
 timezone: Asia/Shanghai
 
-author:
-  name: Xoderony
-  email: 3503922521@qq.com
-
+author: Xoderony
+email: 3503922521@qq.com
 github_username: Xoderony
 
 theme: minima
