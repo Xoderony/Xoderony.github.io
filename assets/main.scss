@@ -3,10 +3,237 @@
 
 @import "minima";
 
-/* Microsoft monospace: Consolas / Cascadia Mono */
+/* Microsoft monospace */
 body,
 h1, h2, h3, h4, h5, h6,
 p, a, li, code, pre,
-.site-title, .site-nav, .post-link, .post-meta, .footer-col {
+.site-title, .site-nav, .post-link, .post-meta, .footer-col,
+.theme-toggle {
   font-family: Consolas, "Cascadia Mono", "Cascadia Code", "Courier New", monospace;
+}
+
+/* 去掉 Minima 顶部黑线 */
+.site-header {
+  border-top: none;
+}
+
+.theme-toggle {
+  display: inline-block;
+  margin-left: 15px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #8ab4f8;
+  font-size: 15px;
+  line-height: 1.5;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus {
+  color: #fff;
+  text-decoration: underline;
+  outline: none;
+}
+
+/* 默认深色 */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #121212;
+  color: #e6e6e6;
+}
+
+.site-header {
+  border-bottom-color: #333;
+}
+
+.site-title,
+.site-title:visited {
+  color: #f0f0f0;
+}
+
+.site-nav .page-link {
+  color: #e6e6e6;
+}
+
+a {
+  color: #8ab4f8;
+}
+
+a:visited {
+  color: #c58af9;
+}
+
+.post-meta {
+  color: #9a9a9a;
+}
+
+.site-footer {
+  border-top-color: #333;
+  background-color: #1a1a1a;
+  color: #c8c8c8;
+}
+
+.footer-col-wrapper,
+.site-footer a {
+  color: #c8c8c8;
+}
+
+.site-footer a:hover {
+  color: #fff;
+}
+
+pre,
+code {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #e6e6e6;
+}
+
+.highlight {
+  background: #1e1e1e;
+}
+
+hr {
+  border-top-color: #333;
+}
+
+blockquote {
+  color: #9a9a9a;
+  border-left-color: #444;
+}
+
+table th,
+table td {
+  border-color: #333;
+}
+
+table th {
+  background-color: #1a1a1a;
+}
+
+table tr:nth-child(even) {
+  background-color: #181818;
+}
+
+/* 浅色主题 */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="light"] body {
+  background-color: #fff;
+  color: #111;
+}
+
+html[data-theme="light"] .site-header {
+  border-bottom-color: #e8e8e8;
+}
+
+html[data-theme="light"] .site-title,
+html[data-theme="light"] .site-title:visited {
+  color: #424242;
+}
+
+html[data-theme="light"] .site-nav .page-link {
+  color: #111;
+}
+
+html[data-theme="light"] .theme-toggle {
+  color: #2a7ae2;
+}
+
+html[data-theme="light"] .theme-toggle:hover,
+html[data-theme="light"] .theme-toggle:focus {
+  color: #111;
+}
+
+html[data-theme="light"] a {
+  color: #2a7ae2;
+}
+
+html[data-theme="light"] a:visited {
+  color: #1756a9;
+}
+
+html[data-theme="light"] .post-meta {
+  color: #828282;
+}
+
+html[data-theme="light"] .site-footer {
+  border-top-color: #e8e8e8;
+  background-color: #f7f7f7;
+  color: #111;
+}
+
+html[data-theme="light"] .footer-col-wrapper,
+html[data-theme="light"] .site-footer a {
+  color: #828282;
+}
+
+html[data-theme="light"] .site-footer a:hover {
+  color: #111;
+}
+
+html[data-theme="light"] pre,
+html[data-theme="light"] code {
+  background-color: #eef;
+  border-color: #e8e8e8;
+  color: #111;
+}
+
+html[data-theme="light"] .highlight {
+  background: #eef;
+}
+
+html[data-theme="light"] hr {
+  border-top-color: #e8e8e8;
+}
+
+html[data-theme="light"] blockquote {
+  color: #828282;
+  border-left-color: #e8e8e8;
+}
+
+html[data-theme="light"] table th,
+html[data-theme="light"] table td {
+  border-color: #e8e8e8;
+}
+
+html[data-theme="light"] table th {
+  background-color: #f0f0f0;
+}
+
+html[data-theme="light"] table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+@media screen and (max-width: 600px) {
+  .site-nav {
+    background-color: #1a1a1a;
+    border-color: #333;
+  }
+
+  .site-nav .menu-icon > svg {
+    fill: #e6e6e6;
+  }
+
+  html[data-theme="light"] .site-nav {
+    background-color: #fff;
+    border-color: #e8e8e8;
+  }
+
+  html[data-theme="light"] .site-nav .menu-icon > svg {
+    fill: #424242;
+  }
+
+  .theme-toggle {
+    display: block;
+    margin: 10px 0 5px 15px;
+    text-align: left;
+  }
 }
