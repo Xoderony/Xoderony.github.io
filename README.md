@@ -1,6 +1,6 @@
 # Xoderony
 
-个人博客，托管在 [GitHub Pages](https://xoderony.github.io)，用 **Jekyll** 构建。
+个人博客，托管在 [GitHub Pages](https://xoderony.github.io)，用 **Jekyll** + 默认主题 **Minima** 构建。
 
 ## 怎么更新文章（不需要本地工具）
 
@@ -41,9 +41,9 @@ GitHub 会自动用 Jekyll 构建，无需 Action、无需本机安装 Node / He
 | 路径 | 作用 |
 |------|------|
 | `_posts/` | 文章（Markdown） |
-| `_layouts/` / `_includes/` / `assets/` | 站点模板与样式 |
-| `_config.yml` | 站点标题、作者等配置 |
+| `_config.yml` | 站点标题、主题（Minima）等配置 |
 | `about.md` | 关于页 |
+| `tags.html` | 标签汇总页 |
 
 ## 可选：本机预览
 

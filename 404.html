@@ -1,11 +1,24 @@
 ---
-layout: default
-title: 页面未找到
 permalink: /404.html
+layout: default
 ---
 
-<section class="hero">
-  <p class="hero-brand">404</p>
-  <h1 class="hero-title">这里什么也没有</h1>
-  <p class="hero-lead"><a href="{{ '/' | relative_url }}">返回首页</a></p>
-</section>
+<style type="text/css" media="screen">
+  .container {
+    margin: 10px auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  h1 {
+    margin: 30px 0;
+    font-size: 4em;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+</style>
+
+<div class="container">
+  <h1>404</h1>
+  <p><strong>页面未找到</strong></p>
+  <p>这里什么也没有。<a href="{{ '/' | relative_url }}">返回首页</a></p>
+</div>

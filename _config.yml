@@ -1,4 +1,4 @@
-# Xoderony — GitHub Pages / Jekyll
+# Xoderony — GitHub Pages / Jekyll (Minima)
 title: Xoderony
 description: 传奇の开始
 url: "https://xoderony.github.io"
@@ -9,7 +9,14 @@ timezone: Asia/Shanghai
 author:
   name: Xoderony
   email: 3503922521@qq.com
-  github: Xoderony
+
+github_username: Xoderony
+
+theme: minima
+
+header_pages:
+  - tags.html
+  - about.md
 
 markdown: kramdown
 highlighter: rouge
