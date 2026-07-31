@@ -3,28 +3,141 @@
 
 @import "minima";
 
-/* Microsoft monospace */
+/*
+ * 英文字体优先 Cascadia；中文用微软雅黑。
+ * 其他系统会回退到本机常见字体，保证能显示，外观可能略有不同。
+ */
 body,
 h1, h2, h3, h4, h5, h6,
 p, a, li, code, pre,
 .site-title, .site-nav, .post-link, .post-meta, .footer-col,
 .theme-toggle {
-  font-family: Consolas, "Cascadia Mono", "Cascadia Code", "Courier New", monospace;
+  font-family:
+    "Cascadia Mono", "Cascadia Code",
+    "Microsoft YaHei", "微软雅黑",
+    "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Noto Sans CJK SC",
+    "Segoe UI", sans-serif;
 }
 
-/* 去掉 Minima 顶部黑线 */
+/* ========== 百分比自适应布局 ========== */
+.wrapper {
+  width: 90%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+.page-content {
+  width: 100%;
+  padding: 2% 0;
+}
+
+.post-content,
+.home,
+.page-content .wrapper {
+  width: 100%;
+}
+
+.post-content img,
+.page-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-content {
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+}
+
+pre,
+.highlight {
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+}
+
+/* 去掉顶部黑线；标题左、导航右 */
 .site-header {
   border-top: none;
+  width: 100%;
+}
+
+.site-header .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  gap: 2%;
+}
+
+.site-header .site-title {
+  float: none;
+  margin: 0;
+  flex: 0 1 auto;
+  max-width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-header .site-nav {
+  float: none;
+  margin: 0;
+  line-height: 1;
+  flex: 0 1 auto;
+  max-width: 50%;
+  text-align: right;
+}
+
+.site-footer {
+  width: 100%;
+}
+
+.site-footer .wrapper {
+  width: 90%;
+}
+
+.footer-col-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-left: 0;
+}
+
+.footer-col {
+  float: none;
+  margin-bottom: 1.5%;
+  padding-left: 0;
+  box-sizing: border-box;
+}
+
+.footer-col-1,
+.footer-col-2 {
+  width: 30%;
+  padding-right: 2%;
+}
+
+.footer-col-3 {
+  width: 40%;
 }
 
 .theme-toggle {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 4%;
   padding: 0;
   border: none;
   background: transparent;
   color: #8ab4f8;
-  font-size: 15px;
+  font-size: 1em;
   line-height: 1.5;
   cursor: pointer;
   vertical-align: middle;
@@ -212,7 +325,40 @@ html[data-theme="light"] table tr:nth-child(even) {
   background-color: #f7f7f7;
 }
 
+/* 平板 */
+@media screen and (max-width: 900px) {
+  .wrapper,
+  .site-header .wrapper,
+  .site-footer .wrapper {
+    width: 92%;
+  }
+
+  .footer-col-1,
+  .footer-col-2,
+  .footer-col-3 {
+    width: 100%;
+    padding-right: 0;
+  }
+}
+
+/* 手机 */
 @media screen and (max-width: 600px) {
+  .wrapper,
+  .site-header .wrapper,
+  .site-footer .wrapper {
+    width: 94%;
+  }
+
+  .site-header .wrapper {
+    display: block;
+    position: relative;
+  }
+
+  .site-header .site-title,
+  .site-header .site-nav {
+    max-width: 100%;
+  }
+
   .site-nav {
     background-color: #1a1a1a;
     border-color: #333;
@@ -233,7 +379,10 @@ html[data-theme="light"] table tr:nth-child(even) {
 
   .theme-toggle {
     display: block;
-    margin: 10px 0 5px 15px;
+    margin: 3% 0 2% 4%;
     text-align: left;
   }
+
+  h1 { font-size: 1.6em; }
+  h2 { font-size: 1.35em; }
 }
