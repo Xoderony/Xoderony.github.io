@@ -19,8 +19,9 @@ p, a, li, code, pre,
     "Segoe UI", sans-serif;
 }
 
-/* ========== 居中内容区（国内常见博客栏宽） ========== */
-.wrapper {
+/* ========== 居中内容区（文章等主体） ========== */
+.page-content .wrapper,
+.site-footer .wrapper {
   width: 72%;
   max-width: none;
   margin-left: auto;
@@ -69,7 +70,7 @@ table {
   box-sizing: border-box;
 }
 
-/* ========== 顶栏：左站名 / 右导航同一行 ========== */
+/* ========== 顶栏全宽：站名贴左、导航贴右 ========== */
 .site-header {
   border-top: none;
   width: 100%;
@@ -83,7 +84,13 @@ table {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3%;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 3%;
+  padding-right: 3%;
+  box-sizing: border-box;
+  gap: 2%;
 }
 
 .site-header .site-title {
@@ -413,14 +420,21 @@ html[data-theme="light"] table tr:nth-child(even) {
 
 /* ========== 自适应 ========== */
 @media screen and (max-width: 1100px) {
-  .wrapper {
+  .page-content .wrapper,
+  .site-footer .wrapper {
     width: 82%;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .wrapper {
+  .page-content .wrapper,
+  .site-footer .wrapper {
     width: 90%;
+  }
+
+  .site-header .wrapper {
+    padding-left: 4%;
+    padding-right: 4%;
   }
 
   .home .post-row .post-meta {
@@ -436,7 +450,8 @@ html[data-theme="light"] table tr:nth-child(even) {
 }
 
 @media screen and (max-width: 600px) {
-  .wrapper {
+  .page-content .wrapper,
+  .site-footer .wrapper {
     width: 92%;
   }
 
@@ -447,6 +462,8 @@ html[data-theme="light"] table tr:nth-child(even) {
   .site-header .wrapper {
     display: block;
     position: relative;
+    padding-left: 4%;
+    padding-right: 4%;
   }
 
   .site-nav {
