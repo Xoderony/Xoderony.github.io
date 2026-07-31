@@ -1,0 +1,20 @@
+---
+layout: page
+title: 标签
+permalink: /tags/
+---
+
+{% assign sorted_tags = site.tags | sort %}
+{% for tag in sorted_tags %}
+<div class="tag-group" id="{{ tag[0] | slugify }}">
+  <h2>{{ tag[0] }}</h2>
+  <ul class="tag-post-list">
+    {% for post in tag[1] %}
+    <li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
