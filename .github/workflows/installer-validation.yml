@@ -47,6 +47,11 @@ jobs:
             if ($download.ContentLength -ne $metadata.bytes) { throw 'Release asset response length mismatch.' }
             Write-Host 'Approved HTTPS release redirect and expected response length passed; package body was not saved or executed.'
           } finally { Close-Download $download }
+          $live = Read-Release ([uri]'https://xoderony.github.io/downloads/releases/expriverse-demo-latest.json') $false
+          foreach ($field in @('schemaVersion','id','title','file','bytes','expandedBytes','sha256','launcher','layout','executable')) {
+            if ([string]$live.Metadata.$field -cne [string]$metadata.$field) { throw ('Live latest manifest mismatch: ' + $field) }
+          }
+          Write-Host 'Live latest manifest passed HTTPS retrieval, schema validation and all expected release fields.'
   fixtures-pwsh:
     name: Safe fixtures (pwsh)
     runs-on: windows-2022
@@ -85,3 +90,8 @@ jobs:
             if ($download.ContentLength -ne $metadata.bytes) { throw 'Release asset response length mismatch.' }
             Write-Host 'Approved HTTPS release redirect and expected response length passed; package body was not saved or executed.'
           } finally { Close-Download $download }
+          $live = Read-Release ([uri]'https://xoderony.github.io/downloads/releases/expriverse-demo-latest.json') $false
+          foreach ($field in @('schemaVersion','id','title','file','bytes','expandedBytes','sha256','launcher','layout','executable')) {
+            if ([string]$live.Metadata.$field -cne [string]$metadata.$field) { throw ('Live latest manifest mismatch: ' + $field) }
+          }
+          Write-Host 'Live latest manifest passed HTTPS retrieval, schema validation and all expected release fields.'
