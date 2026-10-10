@@ -45,6 +45,7 @@
         $Requested = $Requested.Trim().Trim('"')
         # Explicit paths (including the updater's environment value) are literal.
         if ($interactivePath) { $Requested = [Environment]::ExpandEnvironmentVariables($Requested) }
+        if ($Requested.Contains('%')) { throw '安装路径不能包含 % 符号：Windows CMD 可能将其展开为环境变量。请选择其他目录。' }
         if ($Requested -notmatch '^[A-Za-z]:[\\/]') { throw '请输入完整的本地目录，例如 D:\游戏\Expriverse。' }
         $full = [IO.Path]::GetFullPath($Requested).TrimEnd('\')
         if ($full -match '^[A-Za-z]:$') { $full += '\' }

@@ -212,11 +212,27 @@ try {
             if ($signature -eq 0x02014b50) { [BitConverter]::GetBytes([uint32]1).CopyTo($bytes, $i + 24) }
         }
         [IO.File]::WriteAllBytes($zip, $bytes)
-        Assert-Throws { Expand-SafeArchive $zip (New-TestPath 'forged-out') 1 } 'Actual expansion exceeded trusted size.'
+        $destination = New-TestPath 'forged-out'
+        $rejected = $false
+        try { Expand-SafeArchive $zip $destination 1 } catch { $rejected = $true }
+        [long]$written = 0
+        $files = @()
+        if (Test-Path -LiteralPath $destination) {
+            $files = @(Get-ChildItem -LiteralPath $destination -File -Recurse -Force)
+            foreach ($file in $files) {
+                Assert-True ($file.Length -le 1) 'A forged entry wrote more than its declared size.'
+                $written += $file.Length
+            }
+        }
+        Assert-True ($written -le 1 -and $files.Count -le 1) 'Forged ZIP exceeded the total output cap.'
+        if (-not $rejected) { Assert-True ($written -eq 1 -and $files.Count -eq 1) 'Unexpected successful extraction result.' }
+        # .NET Framework exposes the overrun and we reject it. Modern .NET may cap
+        # the entry stream itself. Both must enforce the same on-disk byte bound.
+        Write-Host ('Forged ZIP rejected: ' + $rejected + '; bytes written: ' + $written)
     }
     Test-Case 'New install, Unicode/metacharacter root, cache creation, same-version no-download' {
         Use-OfflineFixture
-        $root = New-TestPath "Chinese 中文 O'Brien & %TEMP% ! (demo)"
+        $root = New-TestPath "Chinese 中文 O'Brien & 100 percent ! (demo)"
         Invoke-FixtureInstall $root
         $game = Join-Path $root 'game'; Assert-InstalledFiles $game
         foreach ($name in @('local', 'roaming', 'Logs', 'cache')) { Assert-True (Test-Path -LiteralPath (Join-Path $game $name) -PathType Container) ('Missing state directory: ' + $name) }
@@ -224,6 +240,15 @@ try {
         Invoke-FixtureInstall $root
         Assert-True ($script:DownloadCount -eq 1) 'Same version downloaded again.'
         Assert-True ((Get-Item -LiteralPath (Join-Path $game 'Expriverse.Windows.exe')).LastWriteTimeUtc -eq $before) 'Same version rewrote the game.'
+    }
+    Test-Case 'Literal percent paths fail clearly before installation' {
+        Use-OfflineFixture
+        foreach ($label in @('literal-%TEMP%', 'literal-100%')) {
+            $root = New-TestPath $label
+            Assert-Throws { Invoke-FixtureInstall $root } 'CMD-unsafe percent path was accepted.'
+            Assert-True (-not (Test-Path -LiteralPath $root)) 'Percent path created installation files.'
+        }
+        Assert-True ($script:DownloadCount -eq 0) 'Percent path downloaded a package.'
     }
     Test-Case 'Cancel and unmanaged directory refusal leave user files intact' {
         Use-OfflineFixture; $script:AcceptInstall = $false
@@ -326,7 +351,7 @@ try {
         Assert-True ([IO.File]::ReadAllText((Join-Path $target 'keep.txt')) -ceq 'untouched') 'Junction removal touched its target.'
     }
     Test-Case 'Updater root survives CMD metacharacters without source interpolation' {
-        $root = New-TestPath "中文 O'Brien & %TEMP% ! (update)"; $game = Join-Path $root 'game'; [IO.Directory]::CreateDirectory($game) | Out-Null
+        $root = New-TestPath "中文 O'Brien & 100 percent ! (update)"; $game = Join-Path $root 'game'; [IO.Directory]::CreateDirectory($game) | Out-Null
         $wrapper = (Get-GameWrappers)['Update-Expriverse.cmd']
         $lines = $wrapper -split '\r?\n'; $original = @($lines | Where-Object { $_ -match ' -Command ' })[0]
         $probe = '"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -Command "[IO.File]::WriteAllText($env:EXPRIVERSE_TEST_OUTPUT,[IO.Path]::GetFullPath($env:EXPRIVERSE_INSTALL_ROOT))"'
@@ -334,8 +359,9 @@ try {
         $path = Join-Path $game 'Probe-Update.cmd'; [IO.File]::WriteAllText($path, $wrapper, [Text.Encoding]::ASCII)
         $env:EXPRIVERSE_TEST_OUTPUT = New-TestPath 'root-probe.txt'
         # This is our harmless replacement probe, not the updater/downloaded code or fake game.
-        & $env:ComSpec /d /c ('""' + $path + '""')
-        Assert-True ($LASTEXITCODE -eq 0) 'CMD probe failed.'
+        Push-Location -LiteralPath $game
+        try { & $env:ComSpec /d /c Probe-Update.cmd; Assert-True ($LASTEXITCODE -eq 0) 'CMD probe failed.' }
+        finally { Pop-Location }
         Assert-True ([IO.File]::ReadAllText($env:EXPRIVERSE_TEST_OUTPUT).TrimEnd('\') -ceq $root.TrimEnd('\')) 'CMD changed the selected root.'
         Remove-Item Env:\EXPRIVERSE_TEST_OUTPUT
     }

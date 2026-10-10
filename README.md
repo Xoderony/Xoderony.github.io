@@ -25,7 +25,7 @@ GitHub Pages 沿用 `main` 分支根目录的发布方式。提交后在仓库 A
 
 发布新 Demo 时，应先验证实际包的文件名、大小、SHA-256 与下载地址，再更新下载页中的版本信息。网站托管安装脚本与 `downloads/releases/expriverse-demo-latest.json`，游戏 ZIP 托管在 GitHub Releases。安装器支持 Windows PowerShell 5.1（.NET Framework 4.7.2+）与 PowerShell 7；可选安装父目录、SHA-256/长度校验、安全解压、可选桌面快捷方式、可选首次启动，以及同目录更新和失败回滚。游戏和包内脚本不在网站执行。
 
-当前 ZIP 已实测核对大小、SHA-256 与所有条目 CRC：根目录直接包含 `Expriverse.Windows.exe`，共 435 个条目，解压文件共 358,979,548 字节。包内没有启动/更新 CMD，由经过审阅的安装器生成。安装器仅替换带管理标记的 `game` 目录，保留其中 `local`、`roaming`、`Logs`；重要存档仍应自行备份。手动解压目录不会被接管。
+当前 ZIP 已实测核对大小、SHA-256 与所有条目 CRC：根目录直接包含 `Expriverse.Windows.exe`，共 435 个条目，解压文件共 358,979,548 字节。包内没有启动/更新 CMD，由经过审阅的安装器生成。安装器仅替换带管理标记的 `game` 目录，保留其中 `local`、`roaming`、`Logs`；重要存档仍应自行备份。手动解压目录不会被接管。为避免 Windows CMD 展开路径，实际安装目录名不能含 `%`；交互输入中的 `%LOCALAPPDATA%` 等环境变量会先展开。
 
 发布新版本时，先创建新的不可变版本清单，再更新 latest、安装器允许的 Release 资产路径和页面版本信息，重新运行安全样例测试。不要仅改 latest 指向未经检查的包。安装器只接受本站清单和已限定的 HTTPS GitHub 资产重定向，不需要修改系统执行策略、关闭证书校验、保存令牌或管理员权限。
 
