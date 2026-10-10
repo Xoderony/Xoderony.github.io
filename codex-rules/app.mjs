@@ -4,6 +4,10 @@ const $ = id => document.getElementById(id);
 let snapshot, draft, storageKey, result, activeTab = 'rules';
 const cards = new Map();
 const notify = text => { $('notice').textContent = text; };
+// Restore the displayed snapshot when Back/Forward brings this document back from BFCache.
+window.addEventListener('pageshow', () => {
+  if (snapshot) $('version').value = snapshot.version;
+});
 function confirmChange(message) {
   const dialog = $('confirm-dialog');
   $('confirm-message').textContent = message;
