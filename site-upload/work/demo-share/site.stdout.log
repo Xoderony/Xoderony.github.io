@@ -1,0 +1,284 @@
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://127.0.0.1:8080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: E:\WebShare
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/downloads/index.html - 200 13124 text/html 70.0164ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 4.4023ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/install-expriverse.txt'. Physical path: 'E:\WebShare\site\downloads\install-expriverse.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - 200 582 text/plain 0.9356ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 0.5978ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/Install-Expriverse.cmd.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/Install-Expriverse.cmd.txt'. Physical path: 'E:\WebShare\site\downloads\Install-Expriverse.cmd.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/Install-Expriverse.cmd.txt - 200 299 text/plain 0.6551ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4948ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/steam-validation.html - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/steam-validation.html'. Physical path: 'E:\WebShare\site\downloads\steam-validation.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/steam-validation.html - 200 3923 text/html 0.4168ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.5631ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 HEAD http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 HEAD http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - 200 107345269 application/x-zip-compressed 0.2678ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 0.5543ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4292ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - 404 0 - 0.3217ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://www.h6968de49.nyat.app:13628/favicon.ico, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.7255ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 HEAD http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 HEAD http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - 200 107345269 application/x-zip-compressed 0.2328ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[10]
+      Sending bytes 0-3/107345269 of file E:\WebShare\site\downloads\ExpriverseDemo-20261004-01.zip
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - 206 4 application/x-zip-compressed 7.3591ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 0.7788ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/install-expriverse.txt'. Physical path: 'E:\WebShare\site\downloads\install-expriverse.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - 200 582 text/plain 0.5302ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 0.7598ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4063ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 0.6199ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4372ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 0.5382ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4841ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - 404 0 - 0.2050ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://www.h6968de49.nyat.app:13628/favicon.ico, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 0.7405ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 0.9976ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4509ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/favicon.ico - 404 0 - 0.1593ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://www.h6968de49.nyat.app:13628/favicon.ico, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/index.html - 200 13124 text/html 0.5803ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/downloads/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/index.html'. Physical path: 'E:\WebShare\site\downloads\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/downloads/index.html - 200 13124 text/html 0.5012ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/install-expriverse.txt'. Physical path: 'E:\WebShare\site\downloads\install-expriverse.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - 200 582 text/plain 0.4451ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 1.1774ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.4745ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/install-expriverse.txt'. Physical path: 'E:\WebShare\site\downloads\install-expriverse.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/install-expriverse.txt - 200 582 text/plain 0.3608ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/expriverse-installer.txt'. Physical path: 'E:\WebShare\site\downloads\expriverse-installer.txt'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt - 200 17412 text/plain 0.4146ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/releases/expriverse-demo-latest.json'. Physical path: 'E:\WebShare\site\downloads\releases\expriverse-demo-latest.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/releases/expriverse-demo-latest.json - 200 311 application/json 0.3944ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/ExpriverseDemo-20261004-01.zip'. Physical path: 'E:\WebShare\site\downloads\ExpriverseDemo-20261004-01.zip'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - 200 107345269 application/x-zip-compressed 128129.0596ms
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/downloads/ExpriverseDemo-20261004-01.zip'. Physical path: 'E:\WebShare\site\downloads\ExpriverseDemo-20261004-01.zip'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://www.h6968de49.nyat.app:13628/downloads/ExpriverseDemo-20261004-01.zip - 200 107345269 application/x-zip-compressed 98145.1117ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/ - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/index.html'. Physical path: 'E:\WebShare\site\codex-rules\index.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/index.html - 200 4772 text/html 5.0309ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/style.css - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/app.mjs - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/style.css'. Physical path: 'E:\WebShare\site\codex-rules\style.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/style.css - 200 6622 text/css 1.5688ms
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/app.mjs'. Physical path: 'E:\WebShare\site\codex-rules\app.mjs'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/app.mjs - 200 11506 text/javascript 0.7866ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/core.mjs - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/core.mjs'. Physical path: 'E:\WebShare\site\codex-rules\core.mjs'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/core.mjs - 200 6681 text/javascript 0.6789ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/catalog.json - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/catalog.json'. Physical path: 'E:\WebShare\site\codex-rules\catalog.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/catalog.json - 200 66 application/json 0.6110ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/releases/2026-10-03-v1.json - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:8080/favicon.ico - - -
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/codex-rules/releases/2026-10-03-v1.json'. Physical path: 'E:\WebShare\site\codex-rules\releases\2026-10-03-v1.json'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/codex-rules/releases/2026-10-03-v1.json - 200 78669 application/json 2.8717ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://127.0.0.1:8080/favicon.ico - 404 0 - 2.3552ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://127.0.0.1:8080/favicon.ico, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://221.178.62.105:13628/ - - -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'HTTP: GET / => Home'
+info: Microsoft.AspNetCore.Http.Result.ContentResult[2]
+      Write content with HTTP Response ContentType of text/html; charset=utf-8
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'HTTP: GET / => Home'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://221.178.62.105:13628/ - 200 2520 text/html;+charset=utf-8 41.3116ms

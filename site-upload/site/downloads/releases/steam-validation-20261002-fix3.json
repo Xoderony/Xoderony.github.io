@@ -1,0 +1,9 @@
+{
+  "id": "steam-validation-20261002-fix3",
+  "title": "Expriverse Steam Validation 2026-10-02 fix3",
+  "installName": "expriverse-fix3",
+  "file": "../SteamValidation-20261002-fix3.zip",
+  "bytes": 107715110,
+  "sha256": "9ACFC3DB4A4A707FBBFC2D9C5636E3E8A561F278330DD5548CB5A8344DB42060",
+  "launcher": "Start-NetworkValidation.cmd"
+}

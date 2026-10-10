@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expriverse · Steam 双端联调操作表</title>
+<style>
+:root { color-scheme: light; --ink:#172a39; --muted:#556677; --line:#d6e0e7; --a:#145db5; --b:#087b68; --paper:#fff; --bg:#f0f4f7; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); background:var(--bg); font:15px/1.65 "Segoe UI","Microsoft YaHei",sans-serif; }
+main { max-width:1220px; margin:auto; padding:36px 28px 56px; }
+.hero { border-radius:18px; background:#112e40; color:white; padding:32px 36px; }
+.eyebrow { font-size:12px; font-weight:700; letter-spacing:2px; color:#8dd8cc; }
+h1 { margin:8px 0 10px; font-size:32px; line-height:1.35; }
+.hero p { margin:0; color:#d7e5ee; max-width:900px; }
+.meta { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+.meta span { border:1px solid #527080; border-radius:30px; padding:4px 12px; font-size:12px; }
+.roles { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.role { padding:20px 24px; background:white; border:1px solid var(--line); border-top:4px solid var(--a); border-radius:10px; }
+.role.b { border-top-color:var(--b); }
+.role h2 { margin:0 0 5px; font-size:19px; color:var(--a); }
+.role.b h2 { color:var(--b); }
+.role p { margin:0; }
+.notice { border-left:4px solid #d18a11; background:#fff7e5; padding:14px 18px; border-radius:6px; margin:16px 0; }
+.panel { background:white; border:1px solid var(--line); border-radius:12px; padding:22px 24px; margin:20px 0; }
+.panel h2 { font-size:19px; margin:0 0 12px; }
+ol,ul { padding-left:23px; margin:8px 0; }
+li { margin:5px 0; }
+.fields { display:grid; grid-template-columns:1fr 1fr; gap:14px 22px; }
+.fields label { display:flex; flex-direction:column; font-size:13px; font-weight:650; gap:5px; }
+input[type="text"] { font:14px/1.5 Consolas,monospace; padding:9px 10px; border:1px solid #abbcc9; border-radius:6px; width:100%; color:var(--ink); background:#fbfdff; }
+input[aria-invalid="true"] { border:2px solid #b43b35; background:#fff4f2; }
+.hint { color:var(--muted); font-size:13px; margin:10px 0 0; }
+.toolbar { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:18px 0; }
+button { cursor:pointer; background:white; border:1px solid #aabcc9; color:var(--ink); border-radius:6px; padding:7px 12px; font:inherit; }
+button:hover:not(:disabled) { background:#e9f1f7; }
+button:disabled { cursor:not-allowed; opacity:.42; }
+progress { height:10px; width:200px; accent-color:var(--b); }
+#feedback { min-height:24px; color:var(--a); font-size:13px; overflow-wrap:anywhere; }
+nav { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+nav a { color:var(--ink); text-decoration:none; background:white; border:1px solid var(--line); border-radius:30px; padding:5px 12px; font-size:13px; }
+.phase { margin:24px 0; scroll-margin-top:15px; }
+.phase-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+.phase h2 { margin:0; font-size:20px; }
+.host { color:var(--muted); font-size:12px; background:#e0e8ee; border-radius:5px; padding:4px 10px; }
+.table-wrap { border:1px solid var(--line); border-radius:10px; overflow:auto; background:white; }
+table { border-collapse:collapse; width:100%; table-layout:fixed; min-width:760px; font-size:13px; }
+.number-col { width:7%; } .actor-col { width:25%; } .expect-col { width:43%; }
+th,td { padding:14px 12px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+thead th { background:#e7edf2; font-size:13px; }
+thead .a-head { background:#e2edfd; color:var(--a); }
+thead .b-head { background:#dff3ec; color:var(--b); }
+tbody tr:last-child > * { border-bottom:0; }
+.step-label { display:flex; flex-direction:column; align-items:center; gap:9px; font-size:15px; font-variant-numeric:tabular-nums; }
+input[type="checkbox"] { width:17px; height:17px; accent-color:var(--b); cursor:pointer; }
+.a-active { background:#f5f9ff; } .b-active { background:#f3fbf7; }
+.action-title { font-weight:650; display:block; }
+.turn { display:block; font-size:12px; color:#795400; }
+.idle { color:#788894; background:#fafbfc; }
+.idle small { display:block; font-size:11px; color:#8d9ba5; }
+.command { margin-top:9px; background:white; border:1px solid #d5dfe6; border-radius:6px; padding:8px; }
+code { font:12px/1.55 Consolas,"Cascadia Mono",monospace; overflow-wrap:anywhere; }
+.command code { display:block; white-space:pre-wrap; user-select:all; }
+.copy { margin-top:6px; padding:2px 9px; font-size:11px; }
+.pending code { color:#8b520c; }
+.done .step-label { color:var(--b); }
+.done .expect::before { content:"已确认 · "; color:var(--b); font-weight:700; }
+.expect { line-height:1.75; }
+.legend { display:flex; gap:18px; flex-wrap:wrap; font-size:13px; }
+.legend strong { color:var(--ink); }
+.failure { border-color:#e1bfbb; background:#fff8f6; }
+footer { margin-top:25px; font-size:12px; color:var(--muted); }
+@media(max-width:720px) { main{padding:18px 14px 32px;} .hero{padding:24px;} h1{font-size:25px;} .roles,.fields{grid-template-columns:1fr;} .panel{padding:18px;} .phase h2{font-size:18px;} }
+@media print {
+  @page { size:A4 landscape; margin:12mm; }
+  body { background:white; font-size:11px; }
+  main { padding:0; max-width:none; }
+  .hero { padding:16px 20px; border-radius:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  h1 {font-size:23px;} .roles{gap:12px;margin:12px 0;} .role{padding:12px 16px;}
+  .toolbar,nav,#feedback,.copy {display:none!important;}
+  .panel{padding:12px 16px;margin:12px 0;} .phase{margin:18px 0;}
+  .table-wrap{overflow:visible;} table{min-width:0;font-size:11px;}
+  th,td{padding:8px;} code{font-size:10px;}
+  .phase-heading{break-after:avoid;} thead{display:table-header-group;} tr{break-inside:avoid;}
+  .command{padding:5px;} .step-label{font-size:12px;} input[type="text"]{font-size:11px;}
+}
+</style>
+</head>
+<body><main>
+<header class="hero">
+<div class="eyebrow">EXPRIVERSE / STEAM MULTIPLAYER TEST</div>
+<h1>双端联调操作表</h1>
+<p>一人操作，另一人等待；确认预期结果后再进入下一步。创建者退出后，A / B 仍指原来的两位操作者，不随房主身份互换。</p>
+<div class="meta"><span>适用：2026-10-02 fix2 测试包</span><span>Windows x64 · 不同 Steam 账号</span><span>App ID 480</span><span>37 个有序步骤</span></div>
+</header>
+
+<div class="roles">
+<section class="role"><h2>A · 你 / 最初的创建者</h2><p>首先创建大厅。第 06 阶段退出，让 B 接任；之后以普通成员身份重新加入，并测试场景重载。</p></section>
+<section class="role b"><h2>B · 好友 / 最初的加入者</h2><p>加入 A 的大厅。先测试普通成员退会与重进；第 06 阶段成为房主，保留大厅和剩余对象。</p></section>
+</div>
+<div class="notice"><strong>先说清楚：</strong>验证场景没有模型、地面或角色，空白背景正常。<code>net.spawn</code> 生成的是不可见的数据实体，通过 <code>net.status</code> 和日志确认结果。</div>
+
+<section class="panel">
+<h2>开始前</h2>
+<ol>
+<li>双方使用同一个 fix2 测试包，完整解压到各自的新目录，登录不同的 Steam 账号并保持在线。</li>
+<li>双方运行 <code>Start-NetworkValidation.cmd</code>，按 <strong>~</strong> 打开游戏控制台。看到 <code>Steam initialized.</code> 后开始。</li>
+<li>每条命令单独执行；不要把一整阶段的命令一起粘贴。表中“等待”一方本步骤不提交命令。</li>
+<li>创建／加入是异步操作：必须等成功或失败结果。等待期间不重复请求、不退会、不重载场景。</li>
+<li>如果尚未出现所需事件或状态，不勾选完成，也不要进入依赖它的下一步。两端状态不一致时按页尾“异常处理”记录现场。</li>
+</ol>
+</section>
+
+<section class="panel" id="identifiers">
+<h2>本次测试标识</h2>
+<div class="fields">
+<label for="lobby">大厅 ID · 始终使用同一个大厅<input id="lobby" type="text" inputmode="numeric" autocomplete="off" placeholder="A 创建成功后填写完整数字"></label>
+<label for="objectA">A 对象 GUID · Oₐ<input id="objectA" type="text" autocomplete="off" placeholder="A 执行 net.spawn 10 后返回的 GUID"></label>
+<label for="objectB">B 对象 GUID · Oᵦ<input id="objectB" type="text" autocomplete="off" placeholder="B 执行 net.spawn 20 后返回的 GUID"></label>
+<label for="objectC">新对象 GUID · O꜀<input id="objectC" type="text" autocomplete="off" placeholder="B 退会后，A 执行 net.spawn 40 返回的 GUID"></label>
+<label for="peerA">A 的 Steam ID · 用于核对 Owner<input id="peerA" type="text" inputmode="numeric" autocomplete="off" placeholder="A 的 net.status 中 local 的数字"></label>
+<label for="peerB">B 的 Steam ID · 用于核对 Owner<input id="peerB" type="text" inputmode="numeric" autocomplete="off" placeholder="B 的 net.status 中 local 的数字"></label>
+</div>
+<p class="hint">填写有效 ID 后，下方命令会自动替换并启用复制。未填写时显示占位符，手工执行须替换占位符且不输入尖括号。GUID 使用完整的 8-4-4-4-12 格式。标识和勾选只保留在当前页面，刷新会清空；填写后可打印留档。页面离线可用，不上传输入。</p>
+<div class="legend"><span><strong>Oₐ</strong>：最初 A 的对象，第 04 阶段销毁</span><span><strong>Oᵦ</strong>：贯穿测试；权威 B → A → B</span><span><strong>O꜀</strong>：中途新增；由 B 接管后销毁</span></div>
+</section>
+
+<div class="toolbar"><button id="print" type="button">打印 / 保存为 PDF</button><progress id="progress" value="0" max="37" aria-label="测试步骤完成进度"></progress><span id="progress-text">0 / 37 步已确认</span></div>
+<div id="feedback" role="status" aria-live="polite"></div>
+<nav aria-label="测试阶段"><a href="#phase-1">阶段 01</a><a href="#phase-2">阶段 02</a><a href="#phase-3">阶段 03</a><a href="#phase-4">阶段 04</a><a href="#phase-5">阶段 05</a><a href="#phase-6">阶段 06</a><a href="#phase-7">阶段 07</a><a href="#phase-8">阶段 08</a><a href="#logs">收集日志</a></nav>
+<noscript><div class="notice">浏览器未启用 JavaScript。仍可阅读全部步骤；请手工替换命令占位符，复制按钮和自动填充不可用。</div></noscript>
+<section class="phase" id="phase-1">
+  <div class="phase-heading"><h2>01 · 创建大厅与建立连接</h2><span class="host">房主：A</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>01</span><input type="checkbox" class="step-check" aria-label="步骤 01 已完成"></label></th><td class="a-active"><span class="action-title">创建大厅</span><div class="command"><code data-command="net.create">net.create</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">等待日志显示创建成功和大厅 ID。把大厅 ID 发给 B，填入上方记录区。B 此时不要创建另一个大厅。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>02</span><input type="checkbox" class="step-check" aria-label="步骤 02 已完成"></label></th><td class="a-active"><span class="action-title">确认初始身份</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">应只有 A 一名成员；local 与 owner 都是 A 的 Steam ID。记录 A 的 Steam ID。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>03</span><input type="checkbox" class="step-check" aria-label="步骤 03 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">加入 A 的大厅</span><div class="command"><code data-command="net.join {{lobby}}">net.join &lt;大厅ID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">等待加入成功，并记录日志中的 B Steam ID。双方还须看到 “Steam connection to … established.”，才能继续生成对象。仅有 Lobby 日志不代表 P2P 已连接。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>04</span><input type="checkbox" class="step-check" aria-label="步骤 04 已完成"></label></th><td class="a-active"><span class="action-title">核对两端大厅</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">核对两端大厅</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。两端大厅 ID 相同、成员均为 A/B、owner 均为 A；此时没有验证对象。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-2">
+  <div class="phase-heading"><h2>02 · 双方各生成一个对象</h2><span class="host">房主：A</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>05</span><input type="checkbox" class="step-check" aria-label="步骤 05 已完成"></label></th><td class="a-active"><span class="action-title">生成 A 对象</span><div class="command"><code data-command="net.spawn 10">net.spawn 10</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">记录命令返回的完整 GUID，填入“A 对象 GUID”并发给 B。称为 Oₐ；它的初值为 10，Owner 是 A。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>06</span><input type="checkbox" class="step-check" aria-label="步骤 06 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">生成 B 对象</span><div class="command"><code data-command="net.spawn 20">net.spawn 20</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">记录命令返回的完整 GUID，填入“B 对象 GUID”并发给 A。称为 Oᵦ；它的初值为 20，Owner 是 B。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>07</span><input type="checkbox" class="step-check" aria-label="步骤 07 已完成"></label></th><td class="a-active"><span class="action-title">核对对象列表</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">核对对象列表</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。两端都应有 Oₐ（10，Owner A）和 Oᵦ（20，Owner B），GUID 完全相同。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-3">
+  <div class="phase-heading"><h2>03 · 验证变量同步（NV）</h2><span class="host">房主：A</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>08</span><input type="checkbox" class="step-check" aria-label="步骤 08 已完成"></label></th><td class="a-active"><span class="action-title">修改 A 对象</span><div class="command"><code data-command="net.set {{objectA}} 11">net.set &lt;A对象GUID&gt; 11</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">等待 B 看到数值变化日志。不要让 B 修改 A 拥有的对象。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>09</span><input type="checkbox" class="step-check" aria-label="步骤 09 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">确认 A 的修改</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">Oₐ 的值应为 11，Owner 仍是 A；Oᵦ 仍为 20。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>10</span><input type="checkbox" class="step-check" aria-label="步骤 10 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">修改 B 对象</span><div class="command"><code data-command="net.set {{objectB}} 22">net.set &lt;B对象GUID&gt; 22</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">等待 A 看到数值变化日志。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>11</span><input type="checkbox" class="step-check" aria-label="步骤 11 已完成"></label></th><td class="a-active"><span class="action-title">核对最新数值</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">核对最新数值</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。Oₐ 为 11、Oᵦ 为 22；两个对象的 Owner 不变。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-4">
+  <div class="phase-heading"><h2>04 · 验证 RPC 与对象销毁</h2><span class="host">房主：A</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>12</span><input type="checkbox" class="step-check" aria-label="步骤 12 已完成"></label></th><td class="a-active"><span class="action-title">广播 A 的 RPC</span><div class="command"><code data-command="net.rpc {{objectA}} 101">net.rpc &lt;A对象GUID&gt; 101</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">双方都应收到 “RPC from &lt;A的SteamID&gt;: 101.”。确认两端都收到，再执行下一步。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>13</span><input type="checkbox" class="step-check" aria-label="步骤 13 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">广播 B 的 RPC</span><div class="command"><code data-command="net.rpc {{objectB}} 202">net.rpc &lt;B对象GUID&gt; 202</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">双方都应收到 “RPC from &lt;B的SteamID&gt;: 202.”。确认两端都收到，再执行下一步。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>14</span><input type="checkbox" class="step-check" aria-label="步骤 14 已完成"></label></th><td class="a-active"><span class="action-title">销毁 A 对象</span><div class="command"><code data-command="net.despawn {{objectA}}">net.despawn &lt;A对象GUID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">等待双方出现该对象的 Despawned 日志。Oₐ 此后不再使用。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>15</span><input type="checkbox" class="step-check" aria-label="步骤 15 已完成"></label></th><td class="a-active"><span class="action-title">确认销毁同步</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">确认销毁同步</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。两端都只剩 Oᵦ：值 22、Owner B。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-5">
+  <div class="phase-heading"><h2>05 · B 退会，A 接管；B 再次加入</h2><span class="host">房主始终为 A</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>16</span><input type="checkbox" class="step-check" aria-label="步骤 16 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">普通成员退会</span><div class="command"><code data-command="net.leave">net.leave</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">等待 B 显示会话结束，A 显示 B 离开。A 不应连带退会。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>17</span><input type="checkbox" class="step-check" aria-label="步骤 17 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">确认本端清理</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">大厅 ID 和 owner 应为 0，不再列出成员或对象。local 仍可保留 B 的 Steam ID，这不是残留会话。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>18</span><input type="checkbox" class="step-check" aria-label="步骤 18 已完成"></label></th><td class="a-active"><span class="action-title">确认对象接管</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">A 仍在原大厅，仅有 A 一个成员；Oᵦ 仍存在，值 22，但 Owner 应变为 A。确认后才能修改它。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>19</span><input type="checkbox" class="step-check" aria-label="步骤 19 已完成"></label></th><td class="a-active"><span class="action-title">修改接管对象</span><div class="command"><code data-command="net.set {{objectB}} 33">net.set &lt;B对象GUID&gt; 33</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">应成功；此时 B 离线，不会即时收到更新。后续由重新加入时的快照恢复。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>20</span><input type="checkbox" class="step-check" aria-label="步骤 20 已完成"></label></th><td class="a-active"><span class="action-title">在 B 离线期间生成新对象</span><div class="command"><code data-command="net.spawn 40">net.spawn 40</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">记录返回的 GUID，填入“新对象 GUID”并发给 B，称为 O꜀。Owner 为 A。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>21</span><input type="checkbox" class="step-check" aria-label="步骤 21 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">重新加入同一大厅</span><div class="command"><code data-command="net.join {{lobby}}">net.join &lt;大厅ID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">等待成功加入及双方连接建立日志，随后核对快照。大厅 ID 不变。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>22</span><input type="checkbox" class="step-check" aria-label="步骤 22 已完成"></label></th><td class="a-active"><span class="action-title">确认晚加入快照</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">确认晚加入快照</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。都应有 Oᵦ（33，Owner A）和 O꜀（40，Owner A），没有已销毁的 Oₐ。B 重新加入不会自动取回 Oᵦ 的权威。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-6">
+  <div class="phase-heading"><h2>06 · A 房主退会，B 成为新房主</h2><span class="host">房主：A → B；操作者标签不变</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>23</span><input type="checkbox" class="step-check" aria-label="步骤 23 已完成"></label></th><td class="a-active"><span class="action-title">原房主退会</span><div class="command"><code data-command="net.leave">net.leave</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">A 等待会话结束；B 等待成员与房主变更通知。B 不应连带退会。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>24</span><input type="checkbox" class="step-check" aria-label="步骤 24 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">确认新房主和对象权威</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">B 仍在同一大厅，仅有 B 一个成员；owner 是 B。Oᵦ 与 O꜀ 的 Owner 都应为 B，值仍为 33、40。确认后继续。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>25</span><input type="checkbox" class="step-check" aria-label="步骤 25 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">修改接管对象</span><div class="command"><code data-command="net.set {{objectB}} 44">net.set &lt;B对象GUID&gt; 44</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">应成功，Oᵦ 的值变为 44。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>26</span><input type="checkbox" class="step-check" aria-label="步骤 26 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">销毁接管的新对象</span><div class="command"><code data-command="net.despawn {{objectC}}">net.despawn &lt;新对象GUID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">应成功，O꜀ 被移除。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>27</span><input type="checkbox" class="step-check" aria-label="步骤 27 已完成"></label></th><td class="a-active"><span class="action-title">作为普通成员重新加入</span><div class="command"><code data-command="net.join {{lobby}}">net.join &lt;大厅ID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">使用最初记录的大厅 ID。等待加入成功及连接建立。A 不要执行 net.create，A/B 标签也不要互换。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>28</span><input type="checkbox" class="step-check" aria-label="步骤 28 已完成"></label></th><td class="a-active"><span class="action-title">核对迁移后快照</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">核对迁移后快照</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。大厅房主是 B，成员为 A/B；只剩 Oᵦ，值 44、Owner B。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-7">
+  <div class="phase-heading"><h2>07 · A 重载场景后再次加入</h2><span class="host">房主：B</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>29</span><input type="checkbox" class="step-check" aria-label="步骤 29 已完成"></label></th><td class="a-active"><span class="action-title">重载验证场景</span><div class="command"><code data-command="net.restart">net.restart</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">B 保持运行。等待 A 重新出现验证入口提示和 Steam initialized 日志；期间不要再提交命令。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>30</span><input type="checkbox" class="step-check" aria-label="步骤 30 已完成"></label></th><td class="a-active"><span class="action-title">确认重载后的空闲状态</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">大厅 ID 和 owner 为 0，不再列出成员或对象；控制台命令仍能正常执行，没有重复注册异常。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>31</span><input type="checkbox" class="step-check" aria-label="步骤 31 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">确认不受 A 重载影响</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">B 仍在原大厅，owner 是 B，仅剩 B 一个成员；Oᵦ 仍为 44、Owner B。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>32</span><input type="checkbox" class="step-check" aria-label="步骤 32 已完成"></label></th><td class="a-active"><span class="action-title">重新加入 B 保留的大厅</span><div class="command"><code data-command="net.join {{lobby}}">net.join &lt;大厅ID&gt;</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">等待加入成功及连接建立日志。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>33</span><input type="checkbox" class="step-check" aria-label="步骤 33 已完成"></label></th><td class="a-active"><span class="action-title">确认重载后恢复</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">确认重载后恢复</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。双方都有且仅有 Oᵦ：值 44、Owner B；房主仍是 B，没有重复对象。</td></tr>
+</tbody></table></div></section>
+<section class="phase" id="phase-8">
+  <div class="phase-heading"><h2>08 · 按顺序退出与收集日志</h2><span class="host">先 A 退会，再 B 退会</span></div>
+  <div class="table-wrap"><table><colgroup><col class="number-col"><col class="actor-col"><col class="actor-col"><col class="expect-col"></colgroup><thead><tr><th scope="col">顺序 / 完成</th><th scope="col" class="a-head">A · 你</th><th scope="col" class="b-head">B · 好友</th><th scope="col">等待条件 / 预期结果</th></tr></thead><tbody>
+<tr><th scope="row"><label class="step-label"><span>34</span><input type="checkbox" class="step-check" aria-label="步骤 34 已完成"></label></th><td class="a-active"><span class="action-title">A 先离开</span><div class="command"><code data-command="net.leave">net.leave</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="expect">B 暂不退会，等待 A 的离开通知。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>35</span><input type="checkbox" class="step-check" aria-label="步骤 35 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">确认大厅仍然有效</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">B 仍在原大厅且为房主，Oᵦ 仍存在。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>36</span><input type="checkbox" class="step-check" aria-label="步骤 36 已完成"></label></th><td class="idle"><span class="wait">等待对方完成</span><small>本步骤不输入命令</small></td><td class="b-active"><span class="action-title">B 最后离开</span><div class="command"><code data-command="net.leave">net.leave</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">此时最后一名成员退出，大厅会话结束。</td></tr>
+<tr><th scope="row"><label class="step-label"><span>37</span><input type="checkbox" class="step-check" aria-label="步骤 37 已完成"></label></th><td class="a-active"><span class="action-title">确认清理完成</span><span class="turn">先执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="b-active"><span class="action-title">确认清理完成</span><span class="turn">A 完成后执行</span><div class="command"><code data-command="net.status">net.status</code><button class="copy" type="button" disabled aria-label="复制命令">复制</button></div></td><td class="expect">A 先执行，B 再执行。双方大厅 ID 和 owner 均为 0，不列出成员或对象。随后双方正常关闭游戏，收集本次运行日志。</td></tr>
+</tbody></table></div></section>
+
+<section class="panel failure" id="failure">
+<h2>任一步出现异常时</h2>
+<ol>
+<li>先停在当前步骤，不重启、不额外生成对象，也不要反复执行同一命令。</li>
+<li>双方分别执行 <code>net.status</code>，记录步骤编号、异常表现和大概发生时间；若正在等待创建／加入结果，可查询状态，但不要提交退会或重载。</li>
+<li>保留双方本次运行的日志。画面、控制台内容或对象状态不一致时附截图。</li>
+<li>若游戏已退出，不必重启来补状态，直接提供对应游戏日志与 <code>startup.log</code>。</li>
+</ol>
+<p class="hint">只观察到“命令发送成功”不能证明远端收到；以接收日志和双方 net.status 的结果为准。</p>
+</section>
+
+<section class="panel" id="logs">
+<h2>测试完成后，A / B 分别提供什么</h2>
+<div class="roles">
+<div class="role"><h2>A 提供</h2><p>自己程序目录 <code>Logs/</code> 中本次运行的 <code>game-*.log</code>。发送时注明“A / 最初创建者”。</p></div>
+<div class="role b"><h2>B 提供</h2><p>自己程序目录 <code>Logs/</code> 中本次运行的 <code>game-*.log</code>。发送时注明“B / 最初加入者”。</p></div>
+</div>
+<ul>
+<li>每次启动单独生成日志；本流程中的 <code>net.restart</code> 只是重载场景，通常仍写入同一个进程日志。</li>
+<li>如果中途关闭后重新启动，提供涉及本次测试的全部日志文件，保留原始文件名。</li>
+<li>日志时间为 UTC，可跨端对照。异常退出时再附程序目录的 <code>startup.log</code>；它不能替代完整游戏日志。</li>
+<li>附一句结果，例如：“全部步骤通过”，或“第 24 步，B 连带退出大厅”。步骤勾选只是人工记录，不代表程序自动验证通过。</li>
+</ul>
+</section>
+<footer>范围：双端基本收发、晚加入快照、当前通用对象权威转移、退会清理及场景重载。三端、局部 P2P 故障和自动重连不属于本表；当前无自动重连。验证对象不是玩家角色，离开成员的对象按现有规则转交房主。本 HTML 只展示和复制命令，不会控制游戏或连接 Steam。</footer>
+</main>
+<script>
+(() => {
+  const labels = { lobby: '<大厅ID>', objectA: '<A对象GUID>', objectB: '<B对象GUID>', objectC: '<新对象GUID>' };
+  const guid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const fields = Object.fromEntries(Object.keys(labels).map(key => [key, document.getElementById(key)]));
+  const feedback = document.getElementById('feedback');
+  const valid = (key, value) => key === 'lobby' ? /^[1-9][0-9]{0,19}$/.test(value) && BigInt(value) <= 18446744073709551615n : guid.test(value);
+  function updateCommands() {
+    for (const [key, input] of Object.entries(fields)) {
+      const value = input.value.trim();
+      input.setAttribute('aria-invalid', value !== '' && !valid(key, value) ? 'true' : 'false');
+    }
+    document.querySelectorAll('code[data-command]').forEach(code => {
+      let ready = true;
+      code.textContent = code.dataset.command.replace(/\{\{(\w+)\}\}/g, (_, key) => {
+        const value = fields[key].value.trim();
+        if (!valid(key, value)) { ready = false; return labels[key]; }
+        return value;
+      });
+      code.closest('.command').classList.toggle('pending', !ready);
+      code.nextElementSibling.disabled = !ready;
+      code.nextElementSibling.title = ready ? '复制这一条命令' : '先填写上方有效的大厅 ID 或对象 GUID';
+    });
+  }
+  Object.values(fields).forEach(input => input.addEventListener('input', updateCommands));
+  async function copyText(value) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try { await navigator.clipboard.writeText(value); return; } catch (_) {}
+    }
+    const area = document.createElement('textarea');
+    area.value = value;
+    area.style.position = 'fixed';
+    area.style.left = '-9999px';
+    document.body.appendChild(area);
+    area.select();
+    const copied = document.execCommand('copy');
+    area.remove();
+    if (!copied) throw new Error('copy unavailable');
+  }
+  document.querySelectorAll('.copy').forEach(button => button.addEventListener('click', async () => {
+    const value = button.previousElementSibling.textContent;
+    try {
+      await copyText(value);
+      feedback.textContent = '已复制：' + value + '。请在该步骤指定玩家的游戏控制台执行。';
+    } catch (_) {
+      feedback.textContent = '浏览器未允许复制，请手动选择命令文字复制。';
+    }
+  }));
+  const checks = [...document.querySelectorAll('.step-check')];
+  checks.forEach(check => check.addEventListener('change', () => {
+    check.closest('tr').classList.toggle('done', check.checked);
+    const count = checks.filter(item => item.checked).length;
+    document.getElementById('progress-text').textContent = count + ' / ' + checks.length + ' 步已确认';
+    document.getElementById('progress').value = count;
+  }));
+  document.getElementById('print').addEventListener('click', () => window.print());
+  updateCommands();
+})();
+</script>
+</body></html>
+

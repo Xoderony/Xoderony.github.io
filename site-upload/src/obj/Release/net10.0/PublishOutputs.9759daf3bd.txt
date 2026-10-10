@@ -1,0 +1,5 @@
+E:\WebShare\work\publish\WebShare.exe
+E:\WebShare\work\publish\WebShare.dll
+E:\WebShare\work\publish\WebShare.deps.json
+E:\WebShare\work\publish\WebShare.runtimeconfig.json
+E:\WebShare\work\publish\WebShare.pdb

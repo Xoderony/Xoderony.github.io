@@ -1,0 +1,14 @@
+{
+  "codex-rules": {
+    "title": "Codex 规则工坊",
+    "path": "/codex-rules/",
+    "description": "挑选并修改全局规则与 Skills，生成安装提示词，让 Codex 在你确认差异后安装。",
+    "order": 5
+  },
+  "downloads": {
+    "title": "Expriverse · 项目介绍与下载",
+    "path": "/downloads/",
+    "description": "体验当前内置玩法，下载最新版本，了解 Stride 引擎、Xoderony 框架与模组创作方向。",
+    "order": 20
+  }
+}

