@@ -8,7 +8,7 @@
 
 - `/`：项目与工具导航
 - `/codex-rules/`：Codex 规则工坊，可选规则、编辑 Skills、保存当前浏览器草稿、复制或下载完整安装材料
-- `/downloads/`：Expriverse 项目介绍；Demo 包尚未上传，暂不提供游戏安装命令或下载链接
+- `/downloads/`：Expriverse 项目介绍与 Windows x64 Demo 下载，当前接入 GitHub Release `demo-v0.1.0`
 - `/404.html`：静态错误页
 
 规则工坊的当前快照为 `2026-10-09-v1`，保留两个旧版快照与按版本隔离的草稿。规则及技能是待审阅的分享内容，不是访问网站或安装时的自动授权。附带脚本只作为文本展示与导出，不在本站执行。
@@ -21,7 +21,9 @@ GitHub Pages 沿用 `main` 分支根目录的发布方式。提交后在仓库 A
 
 新增规则版本时，先审阅内容与附带文件，检查敏感信息和目标环境路径；写入新的 `codex-rules/releases/YYYY-MM-DD-vN.json`，验证后再更新 `catalog.json`。已有快照不要原地改写，以免影响版本对应的草稿。
 
-Demo 就绪后，应先验证实际包的文件名、大小、SHA-256 与下载地址，再恢复下载入口。历史导入中的清单不代表包已经托管，不应直接启用。
+当前游戏包通过 GitHub Releases 托管：`Expriverse-win-x64.zip`，139,827,035 字节，GitHub 资产元数据中的 SHA-256 为 `a4e963126c7b00f7f8f99b4fee0d00e2908b68941d054123860a20000cacec05`。发布页：https://github.com/Xoderony/Xoderony.github.io/releases/tag/demo-v0.1.0 。
+
+发布新 Demo 时，应先验证实际包的文件名、大小、SHA-256 与下载地址，再更新下载页中的版本信息。当前站点提供手动 ZIP 下载，不沿用原本依赖旧隧道的安装器或更新脚本。历史导入中的清单不代表包已经托管，不应直接启用。
 
 ## 迁移范围
 
