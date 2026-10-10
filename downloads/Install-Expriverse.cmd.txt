@@ -1,0 +1,11 @@
+@echo off
+setlocal DisableDelayedExpansion
+set "EXPRIVERSE_INSTALL_ROOT="
+"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -Command "$ErrorActionPreference='Stop'; try { Add-Type -AssemblyName System.Net.Http; $h=[Net.Http.HttpClientHandler]::new(); $h.AllowAutoRedirect=$false; $h.UseCookies=$false; $h.UseDefaultCredentials=$false; $h.SslProtocols=[Security.Authentication.SslProtocols]::Tls12; $c=[Net.Http.HttpClient]::new($h); $c.Timeout=[TimeSpan]::FromSeconds(120); try { $r=$c.GetAsync('https://xoderony.github.io/downloads/install-expriverse.txt',[Net.Http.HttpCompletionOption]::ResponseHeadersRead).GetAwaiter().GetResult(); try { if ([int]$r.StatusCode -ne 200) { throw 'Bootstrap download failed or redirected.' }; $s=$r.Content.ReadAsStreamAsync().GetAwaiter().GetResult(); $m=[IO.MemoryStream]::new(); try { $b=New-Object byte[] 4096; while ($true) { $t=$s.ReadAsync($b,0,$b.Length); if (-not $t.Wait(120000)) { throw 'Download timed out.' }; $n=$t.GetAwaiter().GetResult(); if ($n -eq 0) { break }; if ($m.Length+$n -gt 262144) { throw 'Bootstrap is too large.' }; $m.Write($b,0,$n) }; $src=[Text.UTF8Encoding]::new($false,$true).GetString($m.ToArray()).TrimStart([char]0xfeff) } finally { $m.Dispose(); $s.Dispose() } } finally { $r.Dispose() } } finally { $c.Dispose() }; & ([scriptblock]::Create($src)) -InstallRoot $env:EXPRIVERSE_INSTALL_ROOT; if (-not $?) { exit 1 } } catch { Write-Host $_.Exception.Message -ForegroundColor Red; exit 1 }"
+if errorlevel 1 (
+    echo Installation did not complete. See the message above.
+    pause
+    exit /b 1
+)
+pause
+exit /b 0
