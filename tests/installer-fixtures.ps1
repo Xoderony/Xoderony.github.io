@@ -159,6 +159,27 @@ try {
         $script:ManifestJson = 'x' * 65537
         Assert-Throws { Read-Release $uri $false } 'Oversized manifest must fail.'
     }
+    Test-Case 'Download stream enforces exact bytes and Content-Length' {
+        $script:MemoryBody = [Text.Encoding]::ASCII.GetBytes('abc')
+        $script:MemoryLength = $null
+        Set-Item Function:\script:Open-Download -Value {
+            param([uri]$Uri, [string]$Kind, [bool]$AllowHttp)
+            return [pscustomobject]@{ Stream = [IO.MemoryStream]::new($script:MemoryBody, $false); Response = [IO.MemoryStream]::new(); Client = [IO.MemoryStream]::new(); ContentLength = $script:MemoryLength }
+        }
+        $uri = [uri]'https://github.com/Xoderony/Xoderony.github.io/releases/download/demo-v0.1.0/Expriverse-win-x64.zip'
+        $exact = New-TestPath 'exact-download'; Save-Archive $uri $exact 3
+        Assert-True ([IO.File]::ReadAllText($exact) -ceq 'abc') 'Exact streamed download failed.'
+        $short = New-TestPath 'short-download'
+        Assert-Throws { Save-Archive $uri $short 4 } 'Short chunked response was accepted.'
+        $long = New-TestPath 'long-download'
+        Assert-Throws { Save-Archive $uri $long 2 } 'Oversized chunked response was accepted.'
+        $script:MemoryLength = 4
+        $mismatch = New-TestPath 'mismatched-length'
+        Assert-Throws { Save-Archive $uri $mismatch 3 } 'Mismatched Content-Length was accepted.'
+        Assert-True (-not (Test-Path -LiteralPath $mismatch)) 'Content-Length mismatch wrote a destination.'
+        $script:MemoryLength = 3
+        Save-Archive $uri (New-TestPath 'exact-length-download') 3
+    }
     Test-Case 'ZIP traversal, duplicate paths, links, special files, prefix conflicts' {
         $cases = @(
             @(@{ Name = '../escape.txt'; Text = 'x' }),
@@ -195,7 +216,7 @@ try {
     }
     Test-Case 'New install, Unicode/metacharacter root, cache creation, same-version no-download' {
         Use-OfflineFixture
-        $root = New-TestPath "Chinese 中文 O'Brien & 100% ! (demo)"
+        $root = New-TestPath "Chinese 中文 O'Brien & %TEMP% ! (demo)"
         Invoke-FixtureInstall $root
         $game = Join-Path $root 'game'; Assert-InstalledFiles $game
         foreach ($name in @('local', 'roaming', 'Logs', 'cache')) { Assert-True (Test-Path -LiteralPath (Join-Path $game $name) -PathType Container) ('Missing state directory: ' + $name) }
@@ -230,6 +251,8 @@ try {
         $game = Join-Path $root 'game'; $wrapper = Join-Path $game 'Start-Expriverse.cmd'
         [IO.File]::Delete($wrapper)
         Assert-Throws { Invoke-FixtureInstall $root } 'Missing wrapper was ignored.'
+        [IO.File]::WriteAllText($wrapper, '@echo altered wrapper')
+        Assert-Throws { Invoke-FixtureInstall $root } 'Altered wrapper was ignored.'
         [IO.File]::WriteAllText($wrapper, (Get-GameWrappers)['Start-Expriverse.cmd'], [Text.Encoding]::ASCII)
         [IO.File]::Delete((Join-Path $game 'Expriverse.Windows.exe'))
         Assert-Throws { Invoke-FixtureInstall $root } 'Missing executable was ignored.'
@@ -282,8 +305,28 @@ try {
         Assert-Throws { Remove-OwnedWorkDirectory $work $root $token } 'Bad ownership marker was ignored.'
         Assert-True (Test-Path -LiteralPath $work) 'Bad ownership cleanup removed a directory.'
     }
+    Test-Case 'Directory junctions are refused without touching their target' {
+        $root = New-TestPath 'junctions'; [IO.Directory]::CreateDirectory($root) | Out-Null
+        $target = Join-Path $root 'user-target'; [IO.Directory]::CreateDirectory($target) | Out-Null
+        [IO.File]::WriteAllText((Join-Path $target 'keep.txt'), 'untouched')
+        $token = [guid]::NewGuid().ToString('N'); $work = Join-Path $root ('.expriverse-install-' + $token)
+        [IO.Directory]::CreateDirectory($work) | Out-Null
+        [IO.File]::WriteAllText((Join-Path $work '.expriverse-owner'), $token)
+        $junction = Join-Path $work 'linked-state'
+        try {
+            [void](New-Item -ItemType Junction -Path $junction -Target $target)
+            Assert-Throws { Assert-NoDirectoryLinks $junction } 'Junction in install path was accepted.'
+            Assert-Throws { Assert-SafeTree $work } 'Junction in managed tree was accepted.'
+            Assert-Throws { Remove-OwnedWorkDirectory $work $root $token } 'Owned cleanup followed a junction.'
+            Assert-True ([IO.File]::ReadAllText((Join-Path $target 'keep.txt')) -ceq 'untouched') 'Junction target was modified.'
+        } finally {
+            # Non-recursive .NET removal deletes the junction itself, never its target.
+            if (Test-Path -LiteralPath $junction) { [IO.Directory]::Delete($junction) }
+        }
+        Assert-True ([IO.File]::ReadAllText((Join-Path $target 'keep.txt')) -ceq 'untouched') 'Junction removal touched its target.'
+    }
     Test-Case 'Updater root survives CMD metacharacters without source interpolation' {
-        $root = New-TestPath "中文 O'Brien & 100% ! (update)"; $game = Join-Path $root 'game'; [IO.Directory]::CreateDirectory($game) | Out-Null
+        $root = New-TestPath "中文 O'Brien & %TEMP% ! (update)"; $game = Join-Path $root 'game'; [IO.Directory]::CreateDirectory($game) | Out-Null
         $wrapper = (Get-GameWrappers)['Update-Expriverse.cmd']
         $lines = $wrapper -split '\r?\n'; $original = @($lines | Where-Object { $_ -match ' -Command ' })[0]
         $probe = '"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -Command "[IO.File]::WriteAllText($env:EXPRIVERSE_TEST_OUTPUT,[IO.Path]::GetFullPath($env:EXPRIVERSE_INSTALL_ROOT))"'

@@ -23,10 +23,14 @@ GitHub Pages 沿用 `main` 分支根目录的发布方式。提交后在仓库 A
 
 当前游戏包通过 GitHub Releases 托管：`Expriverse-win-x64.zip`，139,827,035 字节，GitHub 资产元数据中的 SHA-256 为 `a4e963126c7b00f7f8f99b4fee0d00e2908b68941d054123860a20000cacec05`。发布页：https://github.com/Xoderony/Xoderony.github.io/releases/tag/demo-v0.1.0 。
 
-发布新 Demo 时，应先验证实际包的文件名、大小、SHA-256 与下载地址，再更新下载页中的版本信息。当前站点提供手动 ZIP 下载，不沿用原本依赖旧隧道的安装器或更新脚本。历史导入中的清单不代表包已经托管，不应直接启用。
+发布新 Demo 时，应先验证实际包的文件名、大小、SHA-256 与下载地址，再更新下载页中的版本信息。网站托管安装脚本与 `downloads/releases/expriverse-demo-latest.json`，游戏 ZIP 托管在 GitHub Releases。安装器支持 Windows PowerShell 5.1（.NET Framework 4.7.2+）与 PowerShell 7；可选安装父目录、SHA-256/长度校验、安全解压、可选桌面快捷方式、可选首次启动，以及同目录更新和失败回滚。游戏和包内脚本不在网站执行。
+
+当前 ZIP 已实测核对大小、SHA-256 与所有条目 CRC：根目录直接包含 `Expriverse.Windows.exe`，共 435 个条目，解压文件共 358,979,548 字节。包内没有启动/更新 CMD，由经过审阅的安装器生成。安装器仅替换带管理标记的 `game` 目录，保留其中 `local`、`roaming`、`Logs`；重要存档仍应自行备份。手动解压目录不会被接管。
+
+发布新版本时，先创建新的不可变版本清单，再更新 latest、安装器允许的 Release 资产路径和页面版本信息，重新运行安全样例测试。不要仅改 latest 指向未经检查的包。安装器只接受本站清单和已限定的 HTTPS GitHub 资产重定向，不需要修改系统执行策略、关闭证书校验、保存令牌或管理员权限。
 
 ## 迁移范围
 
-从 `site-import` 的 `site-upload/site/` 提取所需静态页面。主页导航已静态化；未发布服务器 DLL/EXE、源码、共享数据、日志、备份、旧安装器及指向缺失 ZIP 的发布清单。
+从 `site-import` 的 `site-upload/site/` 提取所需静态页面。主页导航已静态化；未发布服务器 DLL/EXE、源码、共享数据、日志、备份、原始旧安装器及指向缺失 ZIP 的发布清单；随后接回了适配 GitHub Releases 的安装器。
 
 旧博客和导入分支的 Git 历史保留。清理 `main` 的发布内容不会删除其他分支或历史中的文件；不要将密钥、私人数据或不应公开的文件提交到本仓库。

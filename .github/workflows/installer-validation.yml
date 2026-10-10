@@ -9,34 +9,68 @@ on:
 permissions:
   contents: read
 jobs:
-  safe-fixtures:
-    name: Safe fixtures (${{ matrix.shell }})
+  fixtures-powershell:
+    name: Safe fixtures (powershell)
     runs-on: windows-2022
     timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - name: Checkout reviewed source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
       - name: Validate installer with harmless fixtures only
-        shell: ${{ matrix.shell }}
+        shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
           Write-Host ('PowerShell ' + $PSVersionTable.PSVersion.ToString())
           & '.\tests\installer-fixtures.ps1' -InstallerPath '.\downloads\expriverse-installer.txt'
       - name: Check initial website HTTPS fetch without executing downloaded content
-        shell: ${{ matrix.shell }}
+        shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
           $page = Invoke-RestMethod 'https://xoderony.github.io/downloads/' -MaximumRedirection 0
           if (-not ([string]$page).Contains('Expriverse')) { throw 'Unexpected website response.' }
           Write-Host 'Initial no-redirect HTTPS fetch passed; no downloaded script or game executed.'
       - name: Check release redirect headers without executing or saving the package
-        shell: ${{ matrix.shell }}
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $source = [IO.File]::ReadAllText((Join-Path $PWD 'downloads/expriverse-installer.txt'))
+          $tokens = $null; $errors = $null
+          $ast = [Management.Automation.Language.Parser]::ParseInput($source, [ref]$tokens, [ref]$errors)
+          if ($errors.Count) { throw 'Installer parsing failed.' }
+          $functions = ($ast.FindAll({param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst]}, $true) | ForEach-Object { $_.Extent.Text }) -join "`n"
+          . ([scriptblock]::Create($functions))
+          $metadata = Get-Content '.\downloads\releases\expriverse-demo-v0-1-0.json' -Raw | ConvertFrom-Json
+          $download = Open-Download ([uri]$metadata.file) 'Archive' $false
+          try {
+            if ($download.ContentLength -ne $metadata.bytes) { throw 'Release asset response length mismatch.' }
+            Write-Host 'Approved HTTPS release redirect and expected response length passed; package body was not saved or executed.'
+          } finally { Close-Download $download }
+  fixtures-pwsh:
+    name: Safe fixtures (pwsh)
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Validate installer with harmless fixtures only
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Write-Host ('PowerShell ' + $PSVersionTable.PSVersion.ToString())
+          & '.\tests\installer-fixtures.ps1' -InstallerPath '.\downloads\expriverse-installer.txt'
+      - name: Check initial website HTTPS fetch without executing downloaded content
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $page = Invoke-RestMethod 'https://xoderony.github.io/downloads/' -MaximumRedirection 0
+          if (-not ([string]$page).Contains('Expriverse')) { throw 'Unexpected website response.' }
+          Write-Host 'Initial no-redirect HTTPS fetch passed; no downloaded script or game executed.'
+      - name: Check release redirect headers without executing or saving the package
+        shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
           $source = [IO.File]::ReadAllText((Join-Path $PWD 'downloads/expriverse-installer.txt'))
