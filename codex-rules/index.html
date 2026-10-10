@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="挑选、修改 Xoderony 的 Codex 规则与 Skills，生成可审阅差异的 Agent 安装提示词。">
+<title>Codex 规则工坊 · Xoderony</title>
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<header class="site-header"><a href="/" class="brand">Xoderony<span> / 规则工坊</span></a><a href="#how">如何安装 ↗</a></header>
+<main>
+<section class="hero"><div><p class="eyebrow">CODEX / PERSONAL PLAYBOOK</p><h1>好规则，<br>也要适合你。</h1><p class="intro">从我的工作约定中挑选，改成你的习惯。<br>带走规则之前，先让每一处改动都清楚。</p></div><ol class="steps"><li><b>01</b><span>挑选规则与技能</span></li><li><b>02</b><span>编辑细节，保留自己的习惯</span></li><li><b>03</b><span>交给 Codex，确认 diff 后安装</span></li></ol></section>
+<div class="edition"><label>发布快照 <select id="version" disabled aria-label="发布快照"></select></label><span id="save-state" role="status" aria-live="polite">正在读取规则…</span><button id="clear" type="button" disabled>清空当前草稿</button></div>
+<p id="notice" role="status" aria-live="polite"></p>
+<div id="workspace" class="workspace" hidden>
+<section class="library" aria-label="规则与技能">
+<div class="library-tools"><div class="tabs" role="tablist" aria-label="内容类型"><button id="rules-tab" role="tab" aria-selected="true" aria-controls="rules-panel">全局规则 <span id="rule-total"></span></button><button id="skills-tab" role="tab" aria-selected="false" aria-controls="skills-panel" tabindex="-1">Skills <span id="skill-total"></span></button></div><label class="search"><span class="sr-only">搜索规则或技能</span><input id="search" type="search" placeholder="搜索规则、用途或关键词…"></label></div>
+<div id="rules-panel" role="tabpanel" aria-labelledby="rules-tab"></div><div id="skills-panel" role="tabpanel" aria-labelledby="skills-tab" hidden></div><p id="empty-search" hidden>没有匹配内容，试试其他关键词。</p>
+</section>
+<aside class="export-panel"><p class="eyebrow">YOUR CONFIGURATION</p><h2>你的规则清单</h2><div class="stats"><div><strong id="rule-count">0</strong><span>条规则</span></div><div><strong id="skill-count">0</strong><span>个技能（含依赖）</span></div></div><p id="dependency-status"></p><p id="export-errors" role="alert"></p>
+<label class="preview-label" for="preview-mode">预览内容<select id="preview-mode"><option value="agents">AGENTS.md</option><option value="files">Skills 文件清单</option><option value="prompt">完整安装提示词</option></select></label><pre id="preview" tabindex="0" aria-label="导出预览"></pre>
+<p id="export-size" class="muted"></p><button id="copy" type="button" class="primary" disabled>复制安装提示词</button><button id="download" type="button" class="secondary" disabled>下载完整安装材料</button><p class="muted">粘贴给 Codex 后，先审阅逐项建议和文件 diff。你确认后，Agent 才会备份并安装。</p></aside>
+</div>
+<section id="how" class="how"><h2>从这里，到你的 Codex</h2><div><article><h3>在浏览器里定制</h3><p>规则逐条选择，Skills 按完整技能选择。草稿只留在当前浏览器，刷新或下次打开可继续；换设备不会同步。清除浏览器数据会删除草稿。</p></article><article><h3>把材料交给 Agent</h3><p>复制的提示词含有你的修改和技能附带文件。内容较长时，下载完整安装材料并交给 Codex，避免聊天输入被截断。</p></article><article><h3>确认每一处变化</h3><p>Agent 先检查目标电脑的目录和已有规则，解释重复、相似、可合并及冲突项。你可以逐项决定，或接受全部已展示的建议。</p></article></div><p class="muted">这里提供的是个人规则快照，适用范围由你选择。Skills 内原有授权语句也属于待审阅内容，不代表访客已经授权。快照可能包含来源电脑的绝对路径；安装前请检查并按目标环境调整。仅相对路径形式的跨技能引用会自动包含依赖，其余依赖请在安装时核查。发布新版本不会自动改变你的本机配置。</p></section>
+<noscript><p>此页面需要 JavaScript 才能在浏览器中编辑和导出规则。</p></noscript>
+</main><footer>Xoderony · 让工具适应你的工作方式</footer>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message"><form method="dialog"><h2 id="confirm-title">确认修改草稿</h2><p id="confirm-message"></p><div class="actions"><button value="cancel" autofocus>保留当前内容</button><button value="accept">确认</button></div></form></dialog>
+</body>
+</html>

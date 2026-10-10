@@ -1,8 +1,19 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-vendor/
-Gemfile.lock
+# Local development output and accidentally copied server folders
 .DS_Store
-*.swp
+Thumbs.db
+*.log
+*.pid
+*.pdb
+*.dll
+*.exe
+.env
+.env.*
+!.env.example
+node_modules/
+app/
+bin/
+obj/
+backups/
+data/
+work/
+site-upload/

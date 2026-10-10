@@ -1,57 +1,30 @@
-# Xoderony
+# Xoderony · 项目、页面与工具
 
-个人博客，托管在 [GitHub Pages](https://xoderony.github.io)，用 **Jekyll** + 默认主题 **Minima** 构建。
+公开网站：https://xoderony.github.io/
 
-## 怎么更新文章（不需要本地工具）
+这是 GitHub Pages 上的纯静态站点。发布文件直接位于 `main` 根目录，`.nojekyll` 禁用 Jekyll 处理；不需要 .NET、数据库、本机服务器或公网隧道。
 
-1. 打开仓库：<https://github.com/Xoderony/Xoderony.github.io>
-2. 进入 `_posts/` 目录，点 **Add file → Create new file**
-3. 文件名格式：`YYYY-MM-DD-英文或拼音标题.md`  
-   例如：`2026-07-31-my-new-post.md`
-4. 内容写成：
+## 页面
 
-```markdown
----
-title: "文章标题"
-date: 2026-07-31 12:00:00 +0800
-tags:
-  - 知识
----
+- `/`：项目与工具导航
+- `/codex-rules/`：Codex 规则工坊，可选规则、编辑 Skills、保存当前浏览器草稿、复制或下载完整安装材料
+- `/downloads/`：Expriverse 项目介绍；Demo 包尚未上传，暂不提供游戏安装命令或下载链接
+- `/404.html`：静态错误页
 
-这里写正文，支持 Markdown。
-```
+规则工坊的当前快照为 `2026-10-09-v1`，保留两个旧版快照与按版本隔离的草稿。规则及技能是待审阅的分享内容，不是访问网站或安装时的自动授权。附带脚本只作为文本展示与导出，不在本站执行。
 
-5. 提交（Commit）后，等一两分钟，打开 <https://xoderony.github.io> 即可看到新文章。
+## 维护
 
-也可在 GitHub 网页上直接编辑已有 `_posts` 里的 `.md` 文件。
+GitHub Pages 沿用 `main` 分支根目录的发布方式。提交后在仓库 Actions 中检查该提交的 Pages 构建与部署，再验证线上页面。所有运行时资源均同站点提供，不依赖第三方字体或脚本 CDN；不同地区的实际访问情况仍受 GitHub Pages 网络可达性影响。
 
-## 仓库设置（只需做一次）
+本地预览可在仓库目录运行 `python -m http.server 8080`，然后访问 `http://localhost:8080/`。规则工坊使用 ES Modules 和 JSON 请求，请勿直接双击 HTML。
 
-GitHub 仓库 → **Settings → Pages**：
+新增规则版本时，先审阅内容与附带文件，检查敏感信息和目标环境路径；写入新的 `codex-rules/releases/YYYY-MM-DD-vN.json`，验证后再更新 `catalog.json`。已有快照不要原地改写，以免影响版本对应的草稿。
 
-- Source：Deploy from a branch
-- Branch：`main`（或你的默认分支），目录 `/ (root)`
+Demo 就绪后，应先验证实际包的文件名、大小、SHA-256 与下载地址，再恢复下载入口。历史导入中的清单不代表包已经托管，不应直接启用。
 
-仓库名需为 `Xoderony.github.io`（若仍是旧名，在 Settings → General 里改掉）。
+## 迁移范围
 
-GitHub 会自动用 Jekyll 构建，无需 Action、无需本机安装 Node / Hexo / Ruby。
+从 `site-import` 的 `site-upload/site/` 提取所需静态页面。主页导航已静态化；未发布服务器 DLL/EXE、源码、共享数据、日志、备份、旧安装器及指向缺失 ZIP 的发布清单。
 
-## 目录说明
-
-| 路径 | 作用 |
-|------|------|
-| `_posts/` | 文章（Markdown） |
-| `_config.yml` | 站点标题、主题（Minima）等配置 |
-| `about.md` | 关于页 |
-| `tags.html` | 标签汇总页 |
-
-## 可选：本机预览
-
-若以后想在本机预览，可安装 Ruby 后执行：
-
-```bash
-bundle install
-bundle exec jekyll serve
-```
-
-日常写文章不需要这一步。
+旧博客和导入分支的 Git 历史保留。清理 `main` 的发布内容不会删除其他分支或历史中的文件；不要将密钥、私人数据或不应公开的文件提交到本仓库。
