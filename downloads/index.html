@@ -39,12 +39,25 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}main{max-width:1120px}nav{al
 <div class="section-heading"><span class="kicker">02 / RELEASE</span><h2>获取 Expriverse</h2><p class="muted">Windows x64 Demo · 通过 GitHub Releases 下载。</p></div>
 <section class="panel" id="download" aria-labelledby="download-title">
 <h2 class="step-title" id="download-title">Expriverse Demo v0.1.0</h2>
-<p>当前提供内置玩法测试版，下载 ZIP 后完整解压即可保留游戏文件。</p>
+<p>当前提供内置玩法测试版。可使用 PowerShell 安装／更新，也可手动下载 ZIP。</p>
+
+<div class="install-guide" aria-labelledby="install-title">
+<h3 id="install-title">PowerShell 一键安装／更新</h3>
+<p>打开 <strong>64 位 Windows PowerShell 5.1</strong> 或 <strong>PowerShell 7</strong>，粘贴下面的命令并回车。无需管理员权限。</p>
+<label for="install-command" class="hint">安装命令（会下载并运行本站安装脚本）</label>
+<textarea id="install-command" class="command" readonly spellcheck="false" rows="3">irm 'https://xoderony.github.io/downloads/install-expriverse.txt' -MaximumRedirection 0 | iex</textarea>
+<div class="actions"><button type="button" id="copy-install">复制安装命令</button><a href="/downloads/install-expriverse.txt">查看入口脚本</a><a href="/downloads/expriverse-installer.txt">查看完整安装脚本</a><a href="/downloads/Install-Expriverse.cmd.txt" download="Install-Expriverse.cmd">下载安装入口 CMD</a></div>
+<p id="copy-feedback" class="feedback" role="status" aria-live="polite"></p>
+<p class="hint">只在信任本站脚本时运行。安装器会先询问安装父目录，并在下载前确认；默认安装到 <code>%LOCALAPPDATA%\Expriverse\game</code>，支持中文和空格路径；实际目录名请勿包含 <code>%</code> 字符。Windows PowerShell 需 .NET Framework 4.7.2 或更新版本。若命令在旧系统上遇到 TLS 错误，可审阅并使用 CMD 入口，或升级 PowerShell；请勿关闭证书校验。</p>
+<ol class="install-flow"><li><h3>确认后下载</h3><p>从 GitHub Releases 获取游戏包，核对文件大小与 SHA-256，再安全解压。</p></li><li><h3>保留启动入口</h3><p>安装器生成 <code>Start-Expriverse.cmd</code> 和 <code>Update-Expriverse.cmd</code>，快捷方式与首次启动均单独询问。</p></li><li><h3>原目录更新</h3><p>先退出游戏，再双击更新入口；也可再次运行命令，选择相同父目录。</p></li></ol>
+<details><summary>已有版本与手动下载说明</summary><p class="hint">更新只接管带安装器标记的 <code>game</code> 目录，保留其中的 <code>local</code>、<code>roaming</code> 和 <code>Logs</code>，缓存会重新生成；失败时尝试回滚。请另外备份重要存档。</p><p class="hint">手动解压的文件夹不会被自动覆盖。如提示目录不受管理，请另选空的安装位置，不要删除原文件。旧版安装器用户可选择原安装父目录。</p><p class="hint">ZIP 本身不含启动／更新 CMD。手动下载时完整解压后运行 <code>Expriverse.Windows.exe</code>；需要更新入口时请使用上面的安装命令。</p></details>
+</div>
+<hr class="divider">
 <div class="release">
 <dl><dt>版本</dt><dd>demo-v0.1.0</dd><dt>平台</dt><dd>Windows x64</dd><dt>文件</dt><dd>Expriverse-win-x64.zip</dd><dt>下载大小</dt><dd>133.3 MiB（139,827,035 字节）</dd><dt>发布日期</dt><dd><time datetime="2026-10-10T16:23:49Z">2026-10-10（UTC）</time></dd></dl>
 <div class="actions"><a class="button" href="https://github.com/Xoderony/Xoderony.github.io/releases/download/demo-v0.1.0/Expriverse-win-x64.zip">下载 Windows x64 ZIP</a><a class="button secondary" href="https://github.com/Xoderony/Xoderony.github.io/releases/tag/demo-v0.1.0">GitHub 发布页</a></div>
 <p class="hint">下载由 GitHub Releases 提供。若直链无法打开，可进入发布页，在 Assets 中选择上面的 ZIP 文件；Source code 是网站源码，不是游戏包。</p>
-<details><summary>SHA-256 校验值</summary><code class="hash">a4e963126c7b00f7f8f99b4fee0d00e2908b68941d054123860a20000cacec05</code><p class="hint">以上大小与校验值来自 GitHub 发布资产元数据。</p></details>
+<details><summary>SHA-256 校验值</summary><code class="hash">a4e963126c7b00f7f8f99b4fee0d00e2908b68941d054123860a20000cacec05</code><p class="hint">已下载核对实际 ZIP 大小与 SHA-256；安装器每次下载也会重新校验。<a href="/downloads/releases/expriverse-demo-v0-1-0.json">查看此版本清单</a>。</p></details>
 </div>
 <div class="requirements">将 ZIP 完整解压到独立文件夹，保留包内目录与依赖文件，请勿直接在压缩包内运行程序。当前为 <strong>Windows x64</strong> 自包含发布；联机前请打开并登录 <strong>Steam</strong>。</div>
 </section>
@@ -68,5 +81,6 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}main{max-width:1120px}nav{al
 <footer>Expriverse · 开发中。当前下载版本：Demo v0.1.0。</footer>
 </main>
 
+<script src="/downloads/install-ui.js" defer></script>
 </body>
 </html>

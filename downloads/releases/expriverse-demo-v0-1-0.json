@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 2,
+  "id": "expriverse-demo-v0-1-0",
+  "title": "Expriverse Demo v0.1.0",
+  "file": "https://github.com/Xoderony/Xoderony.github.io/releases/download/demo-v0.1.0/Expriverse-win-x64.zip",
+  "bytes": 139827035,
+  "expandedBytes": 358979548,
+  "sha256": "a4e963126c7b00f7f8f99b4fee0d00e2908b68941d054123860a20000cacec05",
+  "launcher": "Start-Expriverse.cmd",
+  "layout": "flat",
+  "executable": "Expriverse.Windows.exe"
+}

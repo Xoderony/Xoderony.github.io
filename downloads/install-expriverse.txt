@@ -1,0 +1,49 @@
+param(
+    [string]$InstallRoot,
+    [switch]$NoLaunch,
+    [switch]$NoShortcut
+)
+
+# Bounded, redirect-free UTF-8 bootstrap for Windows PowerShell 5.1 and PowerShell 7.
+& {
+    param($InstallRoot, $NoLaunch, $NoShortcut)
+    $ErrorActionPreference = 'Stop'
+    Set-StrictMode -Version Latest
+    Add-Type -AssemblyName System.Net.Http
+    $handler = [Net.Http.HttpClientHandler]::new()
+    $client = $null
+    $response = $null
+    $stream = $null
+    $memory = [IO.MemoryStream]::new()
+    try {
+        $handler.AllowAutoRedirect = $false
+        $handler.UseCookies = $false
+        $handler.UseDefaultCredentials = $false
+        if ($null -eq $handler.PSObject.Properties['SslProtocols']) {
+            throw 'Windows PowerShell requires .NET Framework 4.7.2 or newer; alternatively use PowerShell 7.'
+        }
+        $handler.SslProtocols = [Security.Authentication.SslProtocols]::Tls12
+        $client = [Net.Http.HttpClient]::new($handler)
+        $client.Timeout = [TimeSpan]::FromSeconds(30)
+        $client.DefaultRequestHeaders.UserAgent.ParseAdd('Expriverse-Installer-Bootstrap/2')
+        $response = $client.GetAsync('https://xoderony.github.io/downloads/expriverse-installer.txt', [Net.Http.HttpCompletionOption]::ResponseHeadersRead).GetAwaiter().GetResult()
+        if ([int]$response.StatusCode -ne 200) { throw 'Installer download failed or redirected; no downloaded code was run.' }
+        $stream = $response.Content.ReadAsStreamAsync().GetAwaiter().GetResult()
+        $buffer = New-Object byte[] 4096
+        while ($true) {
+            $readTask = $stream.ReadAsync($buffer, 0, $buffer.Length)
+            if (-not $readTask.Wait(120000)) { throw 'Installer download timed out.' }
+            $read = $readTask.GetAwaiter().GetResult()
+            if ($read -eq 0) { break }
+            if ($memory.Length + $read -gt 262144) { throw 'Installer script exceeds its size limit.' }
+            $memory.Write($buffer, 0, $read)
+        }
+        $source = [Text.UTF8Encoding]::new($false, $true).GetString($memory.ToArray()).TrimStart([char]0xfeff)
+    } finally {
+        $memory.Dispose()
+        if ($null -ne $stream) { $stream.Dispose() }
+        if ($null -ne $response) { $response.Dispose() }
+        if ($null -ne $client) { $client.Dispose() } else { $handler.Dispose() }
+    }
+    & ([scriptblock]::Create($source)) -InstallRoot $InstallRoot -NoLaunch:$NoLaunch -NoShortcut:$NoShortcut
+} $InstallRoot $NoLaunch $NoShortcut
